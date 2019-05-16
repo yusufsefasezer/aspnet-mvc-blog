@@ -1,0 +1,27 @@
+﻿<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+    <a class="navbar-brand mr-1" href="@Url.Action("Index", "Home")">@ViewData["BlogTitle"]</a>
+    <button class="btn text-white" id="sidebarToggle" href="#">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Navbar Search -->
+    <form method="get" action="/search" class="d-none d-md-inline-block form-inline ml-auto mr-md-3" target="_blank">
+        <div class="input-group">
+            <input type="text" id="q" name="q" class="form-control" placeholder="Search for...">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Navbar -->
+    <ul class="navbar-nav ml-auto ml-md-0">
+        <li class="nav-item">
+            <a class="nav-link" href="/" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Index", "Logout")"><i class="fas fa-sign-out-alt"></i></a>
+        </li>
+    </ul>
+
+</nav>

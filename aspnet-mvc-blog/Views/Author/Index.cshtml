@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.PageTitle = Model.Author;
+}
+<div class="row">
+
+    <!-- Blog Entries Column -->
+    <div class="col-md-8">
+
+        <h1 class="my-4">@Model.Author</h1>
+
+        @if (Model.Entries.Count == 0)
+        {
+            @Html.Partial("Partials/ErrorMessage")
+        }
+
+        @foreach (var Entry in Model.Entries)
+        {
+            <!-- Blog Post -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">@Entry.Title</h2>
+                    <p class="card-text">@Html.Raw(Entry.Content.Length > 200 ? Entry.Content.Substring(0, 200) : Entry.Content)</p>
+                    <a href="/@Entry.Slug" class="btn btn-primary">Read More &rarr;</a>
+                </div>
+                <div class="card-footer text-muted">
+                    @foreach (var category in Entry.Categories)
+                    {
+                        <span class="badge badge-pill bg-secondary">@Html.ActionLink((string)category.Title, (string)@category.Slug, "category", new { }, new { @class = "text-white" })</span>
+                    }
+                    Posted on <span class="badge badge-pill bg-success text-white">@Entry.DateTime.ToLongDateString()</span> by <span class="badge badge-pill bg-primary text-white">@Html.ActionLink((string)Entry.Author.Title, (string)Entry.Author.Slug, "author", new { }, new { @class = "text-white" })</span>
+                </div>
+            </div>
+        }
+
+        @{
+            int currentPageNumber = Convert.ToInt32(Request.QueryString["page"]);
+        }
+        @if (Model.PageCount > 1 && Model.PageCount >= currentPageNumber)
+        {
+            <!-- Pagination -->
+            <ul class="pagination justify-content-center mb-4">
+                @if (currentPageNumber > 1)
+                {
+                    <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Author")">&larr; First</a></li>
+                }
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    <li class="page-item @(currentPageNumber == i ? "active":"")"><a class="page-link" href="@Url.Action("Index", "Author", new { @page = i })">@i</a></li>
+                }
+                @if (currentPageNumber != Model.PageCount)
+                {
+                    <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Author", new { @page = Model.PageCount })">Last &rarr;</a></li>
+                }
+            </ul>
+        }
+    </div>
+
+    @Html.Partial("Partials/Sidebar")
+
+</div>

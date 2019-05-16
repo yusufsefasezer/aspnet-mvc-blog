@@ -1,0 +1,12 @@
+﻿@Html.Partial("Partials/Header")
+<body>
+    @Html.Partial("Partials/Navigation")
+
+    <main class="container body-content">
+        @RenderBody()
+    </main>
+
+    @Html.Partial("Partials/Footer")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

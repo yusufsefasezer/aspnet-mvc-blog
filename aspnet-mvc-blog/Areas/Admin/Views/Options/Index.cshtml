@@ -1,0 +1,85 @@
+﻿@model aspnet_mvc_blog.Areas.Admin.ViewModels.OptionViewModel
+@{
+    ViewBag.PageTitle = "Options";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Options = true;
+}
+
+@section Head {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet" />
+}
+
+<div class="row mb-3 justify-content-md-center">
+    <div class="col-md-8">
+
+        @using (Html.BeginForm())
+        {
+
+            @Html.AntiForgeryToken()
+
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="form-group row">
+                        <label for="BlogTitle" class="col-sm-2 col-form-label">Title</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(model => model.Options["BlogTitle"], new { @class = "form-control", @placeholder = Model.Options["BlogTitle"], id = "BlogTitle" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label for="BlogDescription" class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(model => model.Options["BlogDescription"], new { @class = "form-control", @placeholder = Model.Options["BlogDescription"], id = "BlogDescription" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="EntryPerPage" class="col-sm-2 col-form-label">Entry per page</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(model => model.Options["EntryPerPage"], new { @class = "form-control", @placeholder = Model.Options["EntryPerPage"], id = "EntryPerPage" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="BlogStyle" class="col-sm-2 col-form-label">Blog style</label>
+                        <div class="col-sm-10">
+                            @Html.DropDownListFor(model => model.Options["BlogStyle"], Model.Categories, new { @class = "form-control", @id = "BlogStyle" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="CommentSystemCode" class="col-sm-2 col-form-label">Comment code</label>
+                        <div class="col-sm-10">
+                            @Html.TextAreaFor(model => model.Options["CommentSystemCode"], new { @class = "form-control", @placeholder = Model.Options["CommentSystemCode"], @id = "CommentSystemCode", @rows = 5 })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="AboutMe" class="col-sm-2 col-form-label">About</label>
+                        <div class="col-sm-10">
+                            @Html.TextAreaFor(model => model.Options["AboutMe"], new { @class = "form-control", @placeholder = Model.Options["AboutMe"], @id = "AboutMe" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-footer text-right p-2">
+                    <input type="submit" class="btn btn-primary" value="Save!" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+    <script>
+        $('#AboutMe').summernote({
+            height: 200
+        });
+    </script>
+}

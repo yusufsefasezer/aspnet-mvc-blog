@@ -1,0 +1,139 @@
+﻿@model aspnet_mvc_blog.Areas.Admin.ViewModels.OverviewViewModel
+@{
+    ViewBag.PageTitle = "Overview";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Overview = true;
+}
+
+@section Head {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet" />
+}
+
+<!-- Icon Cards-->
+<div class="row">
+
+    <div class="col-xl-3 col-sm-6 mb-3">
+        <div class="card text-white bg-primary o-hidden h-100">
+            <div class="card-body">
+                <div class="card-body-icon"><i class="fas fa-fw fa-file"></i></div>
+                <div class="mr-5"><span class="h3 font-weight-lighter">@Model.PostCount</span> Post</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="/Admin/Posts">
+                <span class="float-left">View Details</span>
+                <span class="float-right"><i class="fas fa-angle-right"></i></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6 mb-3">
+        <div class="card text-white bg-dark o-hidden h-100">
+            <div class="card-body">
+                <div class="card-body-icon"><i class="fas fa-fw fa-list"></i></div>
+                <div class="mr-5"><span class="h3 font-weight-lighter">@Model.PageCount</span> Page</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="/Admin/Pages">
+                <span class="float-left">View Details</span>
+                <span class="float-right"><i class="fas fa-angle-right"></i></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6 mb-3">
+        <div class="card text-white bg-success o-hidden h-100">
+            <div class="card-body">
+                <div class="card-body-icon"><i class="fas fa-fw fa-folder"></i></div>
+                <div class="mr-5"><span class="h3 font-weight-lighter">@Model.CategoryCount</span> Category</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="/Admin/Categories">
+                <span class="float-left">View Details</span>
+                <span class="float-right"><i class="fas fa-angle-right"></i></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6 mb-3">
+        <div class="card text-white bg-danger o-hidden h-100">
+            <div class="card-body">
+                <div class="card-body-icon"><i class="fas fa-fw fa-users"></i></div>
+                <div class="mr-5"><span class="h3 font-weight-lighter">@Model.AuthorCount</span> Author</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="/Admin/Authors">
+                <span class="float-left">View Details</span>
+                <span class="float-right"><i class="fas fa-angle-right"></i></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <!-- Recent posts -->
+    <div class="col-xl-6 col-sm-12 mb-3">
+        <div class="card">
+            <div class="card-header"><i class="fas fa-paper-plane"></i> Recent posts</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Title</th>
+                                <th>Categories</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Posts)
+                            {
+                                <tr>
+                                    <td>@item.Title</td>
+                                    <td>
+                                        @foreach (var category in item.Categories)
+                                        {
+                                            @Html.ActionLink(@category.Title, category.Slug, "Category", new { area = "", controller = "Category" }, new { target = "_blank" })
+                                            <text></text>
+                                        }
+                                    </td>
+                                    <td>@item.DateTime.ToShortDateString()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add new post-->
+    <div class="col-xl-6 col-sm-12 mb-3">
+        <div class="card">
+            <div class="card-header"><i class="fas fa-plus-circle"></i> Add new post</div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" class="form-control" placeholder="Title" required="required" autofocus="autofocus" />
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        @Html.DropDownListFor(model => model.Category, Model.Category, htmlAttributes: new { @class = "form-control", @id = "category" })
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Content</label>
+                        <textarea id="content" class="form-control" rows="6"></textarea>
+                    </div>
+                    <input type="submit" value="Save!" class="btn btn-primary" disabled="disabled" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+    <script>
+        $('#content').summernote({
+            height: 200
+        });
+    </script>
+}

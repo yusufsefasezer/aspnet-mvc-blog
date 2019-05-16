@@ -1,0 +1,93 @@
+﻿@model aspnet_mvc_blog.Areas.Admin.ViewModels.PostViewModel
+@{
+    ViewBag.PageTitle = "Edit " + Model.Entry.Title;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Posts = true;
+}
+
+@section Head {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet" />
+}
+
+<!-- Page Content -->
+<h1 class="h3 d-inline">@ViewBag.PageTitle</h1>
+
+<hr />
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+
+        <div class="col-lg-9 col-md-12 mb-3">
+            <div class="card">
+                <div class="card-header">@ViewBag.PageTitle</div>
+                <div class="card-body">
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Entry.ID)
+                    @* Sessiondan alınacak *@
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.Entry.Title, new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Title" } })
+                        @Html.ValidationMessageFor(model => model.Entry.Title, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.TextAreaFor(model => model.Entry.Content, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Entry.Content, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-12 mb-3">
+            <div class="card">
+                <div class="card-header">Options</div>
+                <div class="card-body">
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Entry.CreatedAt)
+                        @Html.EditorFor(model => model.Entry.CreatedAt, "", new { htmlAttributes = new { @class = "form-control", @type = "date", @min = "2000-01-01" } })
+                        @Html.ValidationMessageFor(model => model.Entry.CreatedAt, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Entry.Status)
+                        @Html.EnumDropDownListFor(model => model.Entry.Status, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Entry.Status, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Entry.Categories)
+                        @Html.ListBoxFor(model => model.SelectedCategories, new MultiSelectList(Model.Categories, "ID", "Name"), htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Entry.Categories, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-check">
+                        @Html.EditorFor(model => model.Entry.CommentStatus, new { htmlAttributes = new { @class = "form-check-input" } })
+                        @Html.LabelFor(model => model.Entry.CommentStatus, htmlAttributes: new { @class = "form-check-label" })
+                        @Html.ValidationMessageFor(model => model.Entry.CommentStatus, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+
+                <div class="card-footer text-right">
+                    <input type="submit" class="btn btn-primary btn-block" value="Update" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+    <script>
+        $('#Entry_Content').summernote({
+            height: 300
+        });
+    </script>
+}

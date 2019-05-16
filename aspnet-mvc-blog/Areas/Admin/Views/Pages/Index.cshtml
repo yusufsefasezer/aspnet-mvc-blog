@@ -1,0 +1,43 @@
+﻿@model IEnumerable<aspnet_mvc_blog.Models.Entity.Entry>
+@{
+    ViewBag.PageTitle = "Pages";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Pages = true;
+}
+
+<!-- Page Content -->
+<h1 class="h3 d-inline">@ViewBag.PageTitle</h1>
+<a href="@Url.Action("Create")" class="btn btn-primary align-top btn-sm"><i class="fa fa-list"></i> Add new</a>
+
+<hr />
+
+<div class="row mb-3">
+    <div class="col-12">
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Creation date</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(model => item.Title)</td>
+                        <td>@Html.DisplayFor(model => item.Status)</td>
+                        <td>@item.CreatedAt.ToShortDateString()</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, htmlAttributes: new { @class = "text-success" }) -
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID }, htmlAttributes: new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+    </div>
+</div>

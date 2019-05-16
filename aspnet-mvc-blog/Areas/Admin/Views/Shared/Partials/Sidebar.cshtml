@@ -1,0 +1,38 @@
+﻿<ul class="sidebar navbar-nav">
+    <li class="nav-item @if (ViewBag.Overview != null) {<text>active</text>}">
+        <a class="nav-link" href="/Admin">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li class="nav-item @if (ViewBag.Posts != null) {<text>active</text>}">
+        <a class="nav-link" href="/Admin/Posts">
+            <i class="fas fa-fw fa-file"></i>
+            <span>Posts</span>
+        </a>
+    </li>
+    <li class="nav-item @if (ViewBag.Pages != null) {<text>active</text>}">
+        <a class="nav-link" href="/Admin/Pages">
+            <i class="fas fa-fw fa-list"></i>
+            <span>Pages</span>
+        </a>
+    </li>
+    <li class="nav-item @if (ViewBag.Categories != null) {<text>active</text>}">
+        <a class="nav-link" href="/Admin/Categories">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Category</span>
+        </a>
+    </li>
+    <li class="nav-item @if (ViewBag.Authors != null) {<text>active</text>}">
+        <a class="nav-link" href="/Admin/Authors">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Authors</span>
+        </a>
+    </li>
+    <li class="nav-item @if (ViewBag.Options != null) {<text>active</text>}">
+        <a class="nav-link" href="/Admin/Options">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Options</span>
+        </a>
+    </li>
+</ul>

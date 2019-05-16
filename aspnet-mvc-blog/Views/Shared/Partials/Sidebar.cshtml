@@ -1,0 +1,41 @@
+﻿@{
+    List<aspnet_mvc_blog.Models.ViewModel.LinkViewModel> categories = (List<aspnet_mvc_blog.Models.ViewModel.LinkViewModel>)ViewData["Categories"];
+}
+<!-- Sidebar Widgets Column -->
+<div class="col-md-4">
+
+    <!-- Search Widget -->
+    <div class="card my-4">
+        <h5 class="card-header">Search</h5>
+        <div class="card-body">
+            @using (Html.BeginForm("Index", "Search", method: FormMethod.Get))
+            {
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="input-group">
+                    <input name="q" type="text" class="form-control" placeholder="Search for..." />
+                    <span class="input-group-btn">
+                        <input class="btn btn-secondary" type="submit" value="Search!" />
+                    </span>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Side Widget -->
+    <div class="card my-4">
+        <div class="card-body">
+            @Html.Raw(ViewData["AboutMe"])
+        </div>
+    </div>
+
+    <!-- Categories Widget -->
+    <div class="card my-4">
+        <h5 class="card-header">Categories</h5>
+        <nav class="list-group">
+            @foreach (var item in categories)
+            {
+                @Html.ActionLink((string)item.Title, item.Slug, "category", new { }, new { @class = "list-group-item list-group-item-action" })
+            }
+        </nav>
+    </div>
+</div>

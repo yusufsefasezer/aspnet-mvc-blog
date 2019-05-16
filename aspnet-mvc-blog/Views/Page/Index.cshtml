@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.PageTitle = Model.Title;
+}
+<div class="row">
+
+    <!-- Page Content Column -->
+    <div class="col-lg-8">
+
+        <!-- Title -->
+        <h1 class="mt-4">@Model.Title</h1>
+
+        <hr>
+
+        <!-- Page Content -->
+        @Html.Raw(Model.Content)
+
+        <hr />
+
+        @if (Model.CommentStatus)
+        {
+            @Html.Raw(ViewData["CommentSystemCode"])
+        }
+
+    </div>
+
+    @Html.Partial("Partials/Sidebar")
+
+</div>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<aspnet_mvc_blog.Models.Entity.Author>
+@{
+    ViewBag.PageTitle = "Authors";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Authors = true;
+    var rules = Model.Count() != 1;
+}
+
+<!-- Page Content -->
+<h1 class="h3 d-inline">@ViewBag.PageTitle</h1>
+<a href="@Url.Action("Create")" class="btn btn-primary align-top btn-sm"><i class="fa fa-user-plus"></i> Add new</a>
+
+<hr />
+
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(model => item.FirstName)</td>
+                        <td>@Html.DisplayFor(model => item.LastName)</td>
+                        <td>@Html.DisplayFor(model => item.Email)</td>
+                        <td>@Html.DisplayFor(model => item.Role)</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, htmlAttributes: new { @class = "text-success" })
+                            @if (rules)
+                            {
+                                <text>-</text>
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID }, htmlAttributes: new { @class = "text-danger" })
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

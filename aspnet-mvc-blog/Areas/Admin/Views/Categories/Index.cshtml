@@ -1,0 +1,78 @@
+﻿@model aspnet_mvc_blog.Areas.Admin.ViewModels.CategoryViewModel
+@{
+    ViewBag.PageTitle = "Categories";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Categories = true;
+}
+
+<!-- Page Content -->
+<h1 class="h3 d-inline">@ViewBag.PageTitle</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4 mb-3">
+
+        @using (Html.BeginForm())
+        {
+            <div class="card">
+                <div class="card-body">
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Category.Name)
+                        @Html.EditorFor(model => model.Category.Name, new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus" } })
+                        @Html.ValidationMessageFor(model => model.Category.Name, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Category.Slug, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Category.Slug, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Category.Slug, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Category.ParentID, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.Category.ParentID, new SelectList(Model.Categories, "ID", "Name"), "-- Select --", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Category.ParentID, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+
+                <div class="card-footer text-right">
+                    <input type="submit" class="btn btn-primary" value="Add" />
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div class="col-md-8">
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Slug</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model.Categories)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(model => item.Name)</td>
+                        <td>@Html.DisplayFor(model => item.Slug)</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, htmlAttributes: new { @class = "text-success" }) -
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID }, htmlAttributes: new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+</div>
