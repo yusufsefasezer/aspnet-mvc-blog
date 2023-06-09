@@ -17,9 +17,9 @@ namespace aspnet_mvc_blog.Migrations
         {
 
             context.Options.AddOrUpdate(
-                new Models.Entity.Option { Name = "BlogTitle", Value = "Yusuf SEZER" },
+                new Models.Entity.Option { Name = "BlogTitle", Value = "Yusuf Sezer" },
                 new Models.Entity.Option { Name = "BlogDescription", Value = "ASP.NET MVC Blog" },
-                new Models.Entity.Option { Name = "AboutMe", Value = @"<h5>Yusuf SEZER</h5>" },
+                new Models.Entity.Option { Name = "AboutMe", Value = @"<h5>Yusuf Sezer</h5>" },
                 new Models.Entity.Option { Name = "EntryPerPage", Value = "5" },
                 new Models.Entity.Option { Name = "CommentSystemCode", Value = string.Empty },
                 new Models.Entity.Option { Name = "BlogStyle", Value = "Default.css" }
@@ -28,10 +28,10 @@ namespace aspnet_mvc_blog.Migrations
             Models.Entity.Author author = new Models.Entity.Author
             {
                 ID = 1,
-                Email = "yusufsezer@mail.com",
+                Email = "yusufSezer@mail.com",
                 Password = "123456",
                 FirstName = "Yusuf",
-                LastName = "SEZER",
+                LastName = "Sezer",
                 CreatedAt = DateTime.Now,
                 Role = Models.Entity.UserRole.Administrator
             };
